@@ -1,4 +1,4 @@
-package com.yazantarifi.linkloom
+package com.yazantarifi.tv
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

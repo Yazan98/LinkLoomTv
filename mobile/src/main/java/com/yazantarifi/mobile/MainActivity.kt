@@ -1,4 +1,4 @@
-package com.yazantarifi.linkloom
+package com.yazantarifi.mobile
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
