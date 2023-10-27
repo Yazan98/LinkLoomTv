@@ -11,12 +11,14 @@ import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
+import com.yazantarifi.linkloom.tv.R
 
-class WebsiteScreen: ComponentActivity() {
+class WebsiteScreen: AppCompatActivity() {
 
     private var webView: WebView? = null
 
@@ -43,35 +45,29 @@ class WebsiteScreen: ComponentActivity() {
             return
         }
 
-        setContent {
-            Box(modifier = Modifier.fillMaxSize()) {
-                AndroidView(factory = {
-                    webView = WebView(this@WebsiteScreen)
-                    webView?.apply {
-                        settings.allowContentAccess = true
-                        settings.allowFileAccess = true
-                        settings.allowFileAccessFromFileURLs = true
-                        settings.databaseEnabled = true
-                        settings.domStorageEnabled = true
-                        settings.javaScriptCanOpenWindowsAutomatically = true
-                        settings.loadsImagesAutomatically = true
-                        settings.javaScriptEnabled = true
-                        settings.setSupportZoom(true)
+        setContentView(R.layout.screen_webview)
+        webView = findViewById(R.id.webView)
+        webView?.apply {
+            settings.allowContentAccess = true
+            settings.allowFileAccess = true
+            settings.databaseEnabled = true
+            settings.domStorageEnabled = true
+            settings.loadsImagesAutomatically = true
+            settings.javaScriptEnabled = true
+            settings.userAgentString = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
+            settings.setSupportZoom(true)
 
-                        webViewClient = object : WebViewClient() {
-                            override fun shouldOverrideUrlLoading(
-                                view: WebView?,
-                                request: WebResourceRequest?
-                            ): Boolean {
-                                view?.loadUrl(url)
-                                return true
-                            }
-                        }
-
-                        loadUrl(url)
-                    }!!
-                })
+            webViewClient = object : WebViewClient() {
+                override fun shouldOverrideUrlLoading(
+                    view: WebView?,
+                    request: WebResourceRequest?
+                ): Boolean {
+                    view?.loadUrl(url)
+                    return true
+                }
             }
+
+            loadUrl(url)
         }
     }
 

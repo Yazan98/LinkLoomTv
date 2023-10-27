@@ -1,12 +1,10 @@
 package com.yazantarifi.linkloom.tv
 
 import android.app.Application
-import android.content.Context
 import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.yazantarifi.linkloom.tv.models.database.ApplicationAccountEntity
-import com.yazantarifi.linkloom.tv.models.database.LinkFavouriteEntity
 import com.yazantarifi.linkloom.tv.models.database.LinkHistoryEntity
 import com.yazantarifi.linkloom.tv.utils.ApplicationCrashReporter
 import io.realm.Realm
@@ -52,7 +50,7 @@ class LinkLoomApplication: Application() {
         }
     }
 
-    @RealmModule(library = true, classes = [LinkHistoryEntity::class, LinkFavouriteEntity::class, ApplicationAccountEntity::class])
+    @RealmModule(library = true, classes = [LinkHistoryEntity::class, ApplicationAccountEntity::class])
     class ApplicationDatabaseModules
 
 }

@@ -9,5 +9,6 @@ open class LinkHistoryEntity: RealmObject() {
     var primaryKey: String = ""
     var url: String = ""
     var name: String = ""
+    var account: String = ""
 
 }

@@ -45,7 +45,7 @@ object HomeScreenSectionsBuilder {
     private fun getShoppingItems(context: Context): List<HomeSectionItem> {
         return arrayListOf(
             getWebsiteInstance("www.amazon.com", context.getString(R.string.amazon), R.drawable.banner_amazon),
-            getWebsiteInstance("web.ebay.com", context.getString(R.string.ebay), R.drawable.banner_ebay),
+            getWebsiteInstance("www.ebay.com", context.getString(R.string.ebay), R.drawable.banner_ebay),
             getWebsiteInstance("www.apple.com", context.getString(R.string.apple), R.drawable.banner_apple),
         )
     }

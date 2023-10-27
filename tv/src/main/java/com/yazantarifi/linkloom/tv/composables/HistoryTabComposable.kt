@@ -3,6 +3,7 @@ package com.yazantarifi.linkloom.tv.composables
 import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
@@ -28,13 +30,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.tv.foundation.lazy.grid.TvGridCells
+import androidx.tv.foundation.lazy.grid.TvLazyVerticalGrid
+import androidx.tv.foundation.lazy.grid.items
 import androidx.tv.foundation.lazy.list.TvLazyColumn
 import androidx.tv.foundation.lazy.list.items
 import androidx.tv.material3.Button
+import androidx.tv.material3.Card
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Surface
 import androidx.tv.material3.Text
@@ -43,6 +50,7 @@ import com.yazantarifi.linkloom.tv.LinkLoomApplication
 import com.yazantarifi.linkloom.tv.R
 import com.yazantarifi.linkloom.tv.screens.HomeScreen
 import com.yazantarifi.linkloom.tv.screens.WebsiteScreen
+import com.yazantarifi.linkloom.tv.utils.AppUtils
 import com.yazantarifi.linkloom.tv.utils.HistoryItemsBuilder
 import com.yazantarifi.linkloom.tv.utils.HomeScreenSectionsBuilder
 import com.yazantarifi.linkloom.tv.utils.LinkLoomPrefsManager
@@ -77,18 +85,70 @@ fun HistoryTabComposable(viewModel: ApplicationViewModel) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        TvLazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight(),
-            verticalArrangement = Arrangement.spacedBy(25.dp)
-        ) {
-            items(HistoryItemsBuilder.getScreenItems(context)) { section ->
-                Section(section) {
-                    if (it.url.equals("add")) {
-                        isAddInputDialogOpened.value = true
-                    } else {
-                        viewModel.historyScreenItems.clear()
+//        TvLazyColumn(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .wrapContentHeight(),
+//            verticalArrangement = Arrangement.spacedBy(25.dp)
+//        ) {
+//            items(HistoryItemsBuilder.getScreenItems(context)) { section ->
+//                Section(section) {
+//                    if (it.url.equals("add")) {
+//                        isAddInputDialogOpened.value = true
+//                    } else {
+//                        viewModel.historyScreenItems.clear()
+//                        viewModel.onClearHistory((context.applicationContext as LinkLoomApplication).currentProfile)
+//                    }
+//                }
+//            }
+//        }
+
+        Row(modifier = Modifier.wrapContentWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+            Button(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .background(RedPrimary),
+                onClick = {
+                    isAddInputDialogOpened.value = true
+                }
+            ) {
+                Text(text = context.getString(R.string.add_new), color = White)
+            }
+
+            Spacer(modifier = Modifier.width(20.dp))
+
+            Button(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .background(RedPrimary),
+                onClick = {
+                    viewModel.onClearHistory((context.applicationContext as LinkLoomApplication).currentProfile)
+                }
+            ) {
+                Text(text = context.getString(R.string.clear_history), color = White)
+            }
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+        TvLazyVerticalGrid(columns = TvGridCells.Fixed(4), modifier = Modifier.fillMaxSize().padding(20.dp)) {
+            items(viewModel.historyScreenItems) { item ->
+                Card(onClick = {
+                    WebsiteScreen.startScreen(context, item.url, item.name)
+                }) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(170.dp)
+                            .background(AppUtils.getRandomMaterialColor())
+                            .clip(RoundedCornerShape(10))
+                    ) {
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(text = item.name, color = White, modifier = Modifier.fillMaxWidth().padding(20.dp), textAlign = TextAlign.Center)
+                        }
                     }
                 }
             }

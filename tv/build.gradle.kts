@@ -54,6 +54,7 @@ dependencies {
     implementation("androidx.leanback:leanback:1.0.0")
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
     implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation("androidx.appcompat:appcompat:1.6.1")
 
     implementation(platform("androidx.compose:compose-bom:2023.10.01"))
     implementation(platform("com.google.firebase:firebase-bom:31.4.0"))

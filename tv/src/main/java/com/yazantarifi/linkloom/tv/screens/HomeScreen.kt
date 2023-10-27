@@ -75,9 +75,7 @@ class HomeScreen: ComponentActivity() {
                         ) {
                             NavigationItemComposable(drawerState, 0, NavigationItem(R.drawable.home, getString(R.string.home)), selectedNavigationIndex)
                             NavigationItemComposable(drawerState, 1, NavigationItem(R.drawable.history, getString(R.string.history)), selectedNavigationIndex)
-                            NavigationItemComposable(drawerState, 2, NavigationItem(R.drawable.connect, getString(R.string.connect)), selectedNavigationIndex)
-                            NavigationItemComposable(drawerState, 3, NavigationItem(R.drawable.favourite, getString(R.string.favourite)), selectedNavigationIndex)
-                            NavigationItemComposable(drawerState, 4, NavigationItem(R.drawable.settings, getString(R.string.settings)), selectedNavigationIndex)
+                            NavigationItemComposable(drawerState, 2, NavigationItem(R.drawable.settings, getString(R.string.settings)), selectedNavigationIndex)
                         }
                     }
                 ) {

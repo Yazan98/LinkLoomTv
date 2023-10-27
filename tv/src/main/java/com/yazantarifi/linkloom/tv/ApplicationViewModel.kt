@@ -13,7 +13,24 @@ import kotlinx.coroutines.launch
 
 class ApplicationViewModel: ViewModel() {
 
-    val historyScreenItems = mutableStateListOf<ArrayList<HomeSectionItem>>(arrayListOf())
+    val historyScreenItems = mutableStateListOf<LinkHistoryEntity>()
+
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            ApplicationDatabase().getHistoryItems().let {
+                launch(Dispatchers.Main) {
+                    historyScreenItems.addAll(it)
+                }
+            }
+        }
+    }
+
+    fun onClearHistory(accountName: String) {
+        historyScreenItems.clear()
+        viewModelScope.launch(Dispatchers.IO) {
+            ApplicationDatabase().onClearHistory(accountName)
+        }
+    }
 
     fun onSaveNewUrl(inputName: String, inputUrl: String, profileName: String) {
         if (TextUtils.isEmpty(inputName) || TextUtils.isEmpty(inputUrl)) {
@@ -21,11 +38,15 @@ class ApplicationViewModel: ViewModel() {
         }
 
         viewModelScope.launch(Dispatchers.IO) {
-            ApplicationDatabase().insertEntity(LinkHistoryEntity().apply {
+            val newEntity = LinkHistoryEntity().apply {
                 primaryKey = "$profileName:$inputUrl"
                 name = inputName
                 url = inputUrl
-            })
+                account = profileName
+            }
+
+            historyScreenItems.add(0, newEntity)
+            ApplicationDatabase().insertEntity(newEntity)
         }
     }
 
