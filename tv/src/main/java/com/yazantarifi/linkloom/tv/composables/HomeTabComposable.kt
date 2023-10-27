@@ -34,6 +34,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.yazantarifi.linkloom.tv.R
 import com.yazantarifi.linkloom.tv.models.HomeSectionItem
+import com.yazantarifi.linkloom.tv.screens.WebsiteScreen
 import com.yazantarifi.linkloom.tv.utils.RedPrimary
 import com.yazantarifi.linkloom.tv.utils.White
 
@@ -44,7 +45,8 @@ fun HomeTabComposable() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(10.dp),
+            .padding(10.dp)
+            .padding(end = 20.dp),
         verticalArrangement = Arrangement.Top
     ) {
         Text(
@@ -69,7 +71,7 @@ fun HomeTabComposable() {
         ) {
             items(HomeScreenSectionsBuilder.getSections(context)) { section ->
                 Section(section) {
-
+                    WebsiteScreen.startScreen(context, it.url, it.name)
                 }
             }
         }
@@ -95,23 +97,27 @@ fun Section(
         horizontalArrangement = Arrangement.spacedBy(15.dp)
     ) {
         items(section.items) { item ->
-            MovieCard(
-                item = item,
-                onClick = { onItemSelected(item) }
-            )
+            Box(modifier = Modifier.padding(10.dp)) {
+                WebsiteCard(
+                    item = item,
+                    onClick = { onItemSelected(item) }
+                )
+            }
         }
     }
 }
 
 @OptIn(ExperimentalTvMaterial3Api::class, ExperimentalGlideComposeApi::class)
 @Composable
-fun MovieCard(
+fun WebsiteCard(
     item: HomeSectionItem,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
     Card(modifier = modifier, onClick = onClick){
-       Box(modifier = Modifier.width(150.dp).height(150.dp)) {
+       Box(modifier = Modifier
+           .width(150.dp)
+           .height(150.dp)) {
            GlideImage(
                model = item.banner,
                contentDescription = item.name,

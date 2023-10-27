@@ -46,4 +46,7 @@
     <string name="github">Github</string>
     <string name="hackernoon">Hacker Noon</string>
     <string name="stackoverflow">Stackoverflow</string>
+    <string name="history">History</string>
+    <string name="connect">Connect</string>
+    <string name="favourite">Favourite</string>
 </resources>
