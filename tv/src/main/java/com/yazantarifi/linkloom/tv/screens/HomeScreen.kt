@@ -38,6 +38,7 @@ import androidx.tv.material3.rememberDrawerState
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.yazantarifi.linkloom.tv.R
+import com.yazantarifi.linkloom.tv.composables.HomeTabComposable
 import com.yazantarifi.linkloom.tv.models.NavigationItem
 import com.yazantarifi.linkloom.tv.utils.LinkLoomTheme
 import com.yazantarifi.linkloom.tv.utils.RedPrimary
@@ -86,7 +87,9 @@ class HomeScreen: ComponentActivity() {
             .fillMaxSize()
             .padding(10.dp)
         ) {
-            Text(text = "Test", color = Color.White)
+            when (position) {
+                0 -> HomeTabComposable()
+            }
         }
     }
 

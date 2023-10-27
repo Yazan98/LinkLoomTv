@@ -10,4 +10,23 @@
     <string name="home">Home</string>
     <string name="saved_links">Saved Websites</string>
     <string name="settings">Settings</string>
+    <string name="youtube">Youtube</string>
+    <string name="streaming">Streaming</string>
+    <string name="twitch">Twitch</string>
+    <string name="link_loom_title">Link Loom Website Browser</string>
+    <string name="link_loom_message">Pick your Website to Use it</string>
+    <string name="vimeo">Vimeo</string>
+    <string name="netflix">Netflix</string>
+    <string name="hulu">Hulu</string>
+    <string name="reddit_videos">Reddit</string>
+    <string name="fox_sports">Fox Sports</string>
+    <string name="social_media">Social Media</string>
+    <string name="facebook">Facebook</string>
+    <string name="x">X</string>
+    <string name="whatsapp">WhatsApp</string>
+    <string name="instagram">Instagram</string>
+    <string name="wechat">Wechat</string>
+    <string name="tiktok">TikTok</string>
+    <string name="telegram">Telegram</string>
+    <string name="hbo">HBO</string>
 </resources>
