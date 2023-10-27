@@ -5,11 +5,18 @@ import android.content.Context
 import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.yazantarifi.linkloom.tv.models.database.ApplicationAccountEntity
+import com.yazantarifi.linkloom.tv.models.database.LinkFavouriteEntity
+import com.yazantarifi.linkloom.tv.models.database.LinkHistoryEntity
 import com.yazantarifi.linkloom.tv.utils.ApplicationCrashReporter
 import io.realm.Realm
+import io.realm.RealmConfiguration
+import io.realm.annotations.RealmModule
 import timber.log.Timber
 
 class LinkLoomApplication: Application() {
+
+    var currentProfile: String = ""
 
     companion object {
         fun onAppLog(message: String) {
@@ -26,6 +33,17 @@ class LinkLoomApplication: Application() {
         }
 
         Realm.init(this)
+        Realm.setDefaultConfiguration(
+            RealmConfiguration.Builder()
+                .allowWritesOnUiThread(false)
+                .allowQueriesOnUiThread(false)
+                .deleteRealmIfMigrationNeeded()
+                .name("link_loom.realm")
+                .schemaVersion(1)
+                .modules(ApplicationDatabaseModules())
+                .build()
+        )
+
         FirebaseApp.initializeApp(this)
         FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(true)
         FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
@@ -33,5 +51,8 @@ class LinkLoomApplication: Application() {
             onAppLog("Firebase Unsent Crashes Status: ${it.isSuccessful}")
         }
     }
+
+    @RealmModule(library = true, classes = [LinkHistoryEntity::class, LinkFavouriteEntity::class, ApplicationAccountEntity::class])
+    class ApplicationDatabaseModules
 
 }

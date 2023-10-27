@@ -3,6 +3,7 @@ package com.yazantarifi.linkloom.tv.screens
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -37,7 +38,9 @@ import androidx.tv.material3.Text
 import androidx.tv.material3.rememberDrawerState
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.yazantarifi.linkloom.tv.ApplicationViewModel
 import com.yazantarifi.linkloom.tv.R
+import com.yazantarifi.linkloom.tv.composables.HistoryTabComposable
 import com.yazantarifi.linkloom.tv.composables.HomeTabComposable
 import com.yazantarifi.linkloom.tv.models.NavigationItem
 import com.yazantarifi.linkloom.tv.utils.LinkLoomTheme
@@ -46,6 +49,8 @@ import com.yazantarifi.linkloom.tv.utils.RedPrimaryDark
 import kotlinx.coroutines.launch
 
 class HomeScreen: ComponentActivity() {
+
+    private val viewModel: ApplicationViewModel by viewModels()
 
     @OptIn(ExperimentalTvMaterial3Api::class, ExperimentalGlideComposeApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,6 +96,7 @@ class HomeScreen: ComponentActivity() {
         ) {
             when (position) {
                 0 -> HomeTabComposable()
+                1 -> HistoryTabComposable(viewModel)
             }
         }
     }

@@ -49,4 +49,13 @@
     <string name="history">History</string>
     <string name="connect">Connect</string>
     <string name="favourite">Favourite</string>
+    <string name="history_title">Websites History</string>
+    <string name="history_message">In This screen You can return to Same Links you Previosuly Opened</string>
+    <string name="add_website">Add New Website</string>
+    <string name="clear_history">Clear History</string>
+    <string name="add_dialog_message">Fill Website Information</string>
+    <string name="name">Website Name</string>
+    <string name="url">Website Url (www.example.com)</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 </resources>

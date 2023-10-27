@@ -116,13 +116,13 @@ fun WebsiteCard(
 ) {
     Card(modifier = modifier, onClick = onClick){
        Box(modifier = Modifier
-           .width(150.dp)
+           .width(210.dp)
            .height(150.dp)) {
            GlideImage(
                model = item.banner,
                contentDescription = item.name,
                modifier = Modifier
-                   .size(150.dp, 120.dp)
+                   .size(210.dp, 140.dp)
                    .clip(RoundedCornerShape(10)),
                contentScale = ContentScale.Crop,
            )
