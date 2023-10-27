@@ -10,7 +10,11 @@ object HomeScreenSectionsBuilder {
     fun getSections(context: Context): List<HomeSection> {
         return arrayListOf(
             HomeSection(context.getString(R.string.streaming), getStreamingItems(context)),
+            HomeSection(context.getString(R.string.shopping), getShoppingItems(context)),
             HomeSection(context.getString(R.string.social_media), getSocialMediaItems(context)),
+            HomeSection(context.getString(R.string.news), getNewsItems(context)),
+            HomeSection(context.getString(R.string.most_popular), getMostPopularItems(context)),
+            HomeSection(context.getString(R.string.programming), getProgrammingItems(context)),
         )
     }
 
@@ -35,6 +39,39 @@ object HomeScreenSectionsBuilder {
             getWebsiteInstance("www.tiktok.com", context.getString(R.string.tiktok), R.drawable.banner_tiktok),
             getWebsiteInstance("www.telegram.com", context.getString(R.string.telegram), R.drawable.banner_telegram),
             getWebsiteInstance("www.reddit.com", context.getString(R.string.reddit_videos), R.drawable.banner_reddit)
+        )
+    }
+
+    private fun getShoppingItems(context: Context): List<HomeSectionItem> {
+        return arrayListOf(
+            getWebsiteInstance("www.amazon.com", context.getString(R.string.amazon), R.drawable.banner_amazon),
+            getWebsiteInstance("web.ebay.com", context.getString(R.string.ebay), R.drawable.banner_ebay),
+            getWebsiteInstance("www.apple.com", context.getString(R.string.apple), R.drawable.banner_apple),
+        )
+    }
+
+    private fun getNewsItems(context: Context): List<HomeSectionItem> {
+        return arrayListOf(
+            getWebsiteInstance("www.cnn.com", context.getString(R.string.cnn), R.drawable.banner_cnn),
+            getWebsiteInstance("abcnews.go.com", context.getString(R.string.abc_news), R.drawable.banner_bbc_news),
+            getWebsiteInstance("www.nytimes.com", context.getString(R.string.ny_times), R.drawable.banner_ny_times),
+            getWebsiteInstance("news.google.com", context.getString(R.string.google_news), R.drawable.banner_google_news),
+            getWebsiteInstance("www.bbc.com", context.getString(R.string.bbc), R.drawable.banner_bbc),
+        )
+    }
+
+    private fun getMostPopularItems(context: Context): List<HomeSectionItem> {
+        return arrayListOf(
+            getWebsiteInstance("www.google.com", context.getString(R.string.google), R.drawable.banner_google),
+            getWebsiteInstance("www.bing.com", context.getString(R.string.bing), R.drawable.banner_bing),
+        )
+    }
+
+    private fun getProgrammingItems(context: Context): List<HomeSectionItem> {
+        return arrayListOf(
+            getWebsiteInstance("www.github.com", context.getString(R.string.github), R.drawable.banner_github),
+            getWebsiteInstance("www.stackoverflow.com", context.getString(R.string.stackoverflow), R.drawable.banner_stackoverflow),
+            getWebsiteInstance("business.hackernoon.com", context.getString(R.string.hackernoon), R.drawable.banner_hackernoon),
         )
     }
 
