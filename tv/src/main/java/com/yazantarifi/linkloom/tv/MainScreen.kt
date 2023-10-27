@@ -57,6 +57,7 @@ class MainScreen: ComponentActivity() {
             true -> startActivity(Intent(this, HomeScreen::class.java))
             false -> startActivity(Intent(this, OnBoardingScreen::class.java))
         }
+        finish()
     }
 
 }

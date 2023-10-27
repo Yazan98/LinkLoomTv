@@ -1,5 +1,6 @@
 package com.yazantarifi.linkloom.tv.screens
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,12 +9,9 @@ import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.SizeTransform
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideIn
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,26 +22,28 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
+import androidx.tv.material3.Button
 import androidx.tv.material3.Carousel
-import androidx.tv.material3.CarouselDefaults
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Text
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.yazantarifi.linkloom.tv.R
 import com.yazantarifi.linkloom.tv.models.OnBoardingItem
+import com.yazantarifi.linkloom.tv.utils.LinkLoomPrefsManager
 import com.yazantarifi.linkloom.tv.utils.LinkLoomTheme
 import com.yazantarifi.linkloom.tv.utils.RedPrimary
 import com.yazantarifi.linkloom.tv.utils.White
@@ -87,44 +87,58 @@ class OnBoardingScreen: ComponentActivity() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
 
-                var visible by remember { mutableStateOf(true) }
-                AnimatedVisibility(
-                    visible,
-                    enter = fadeIn(initialAlpha = 0.0f),
-                    exit =  fadeOut()
+            val visible by remember { mutableStateOf(true) }
+            AnimatedVisibility(
+                visible,
+                enter = fadeIn(initialAlpha = 0.0f),
+                exit =  fadeOut()
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .padding(30.dp),
+                    verticalArrangement = Arrangement.Center
                 ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .padding(20.dp),
-                        verticalArrangement = Arrangement.Center
-                    ) {
 
-                        Text(
-                            text = item.title,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = TextUnit(20f, TextUnitType.Sp),
-                            color = RedPrimary
-                        )
-                        Spacer(modifier = Modifier.height(10.dp))
-                        Text(
-                            text = item.message,
-                            fontWeight = FontWeight.Normal,
-                            fontSize = TextUnit(15f, TextUnitType.Sp),
-                            color = White,
-                            modifier = Modifier.fillMaxWidth(0.5f)
-                        )
+                    Text(
+                        text = item.title,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = TextUnit(20f, TextUnitType.Sp),
+                        color = RedPrimary
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Text(
+                        text = item.message,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = TextUnit(15f, TextUnitType.Sp),
+                        color = White,
+                        modifier = Modifier.fillMaxWidth(0.5f)
+                    )
+
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Button(
+                        modifier = Modifier.clip(CircleShape).background(RedPrimary),
+                        onClick = {
+                            LinkLoomPrefsManager.onSaveBooleanPrefs(applicationContext, LinkLoomPrefsManager.IS_FIRST_RUN_APP, true)
+                            startActivity(Intent(this@OnBoardingScreen, HomeScreen::class.java))
+                            finish()
+                        }
+                    ) {
+                        Text(text = getString(R.string.continue_button), color = White)
                     }
                 }
+            }
 
-            GlideImage(
-                model = item.image,
-                contentDescription = "On Boarding Image",
-                Modifier
-                    .size(500.dp, 300.dp)
-                    .padding(10.dp),
-                contentScale = ContentScale.Fit
-            )
+            Column(modifier = Modifier.padding(20.dp)) {
+                GlideImage(
+                    model = item.image,
+                    contentDescription = "On Boarding Image",
+                    Modifier
+                        .size(500.dp, 300.dp)
+                        .padding(10.dp),
+                    contentScale = ContentScale.Fit
+                )
+            }
         }
     }
 
