@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -35,8 +37,16 @@ android {
 }
 
 dependencies {
+    implementation(platform("androidx.compose:compose-bom:2023.10.01"))
+    implementation(platform("com.google.firebase:firebase-bom:32.4.1"))
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.leanback:leanback:1.0.0")
-    implementation("com.github.bumptech.glide:glide:4.11.0")
+    implementation("androidx.activity:activity-compose:1.8.0")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation("androidx.compose.ui:ui-tooling")
+
+    implementation("androidx.tv:tv-foundation:1.0.0-alpha10")
+    implementation("androidx.tv:tv-material:1.0.0-alpha10")
+
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
+    implementation("com.google.firebase:firebase-analytics-ktx")
 }

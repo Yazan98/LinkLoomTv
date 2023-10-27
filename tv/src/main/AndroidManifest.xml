@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LinkLoom">
         <activity
-            android:name=".MainActivity"
+            android:name="com.yazantarifi.linkloom.MainScreen"
             android:banner="@drawable/app_icon_your_company"
             android:exported="true"
             android:icon="@drawable/app_icon_your_company"

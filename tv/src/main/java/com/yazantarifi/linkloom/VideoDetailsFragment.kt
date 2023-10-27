@@ -62,7 +62,7 @@ class VideoDetailsFragment : DetailsSupportFragment() {
             initializeBackground(mSelectedMovie)
             onItemViewClickedListener = ItemViewClickedListener()
         } else {
-            val intent = Intent(context!!, MainActivity::class.java)
+            val intent = Intent(context!!, MainScreen::class.java)
             startActivity(intent)
         }
     }

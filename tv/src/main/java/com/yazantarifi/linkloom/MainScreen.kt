@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity
 /**
  * Loads [MainFragment].
  */
-class MainActivity : FragmentActivity() {
+class MainScreen : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
