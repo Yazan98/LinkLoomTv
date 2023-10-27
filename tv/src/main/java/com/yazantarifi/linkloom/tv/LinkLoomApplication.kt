@@ -6,6 +6,7 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.yazantarifi.linkloom.tv.utils.ApplicationCrashReporter
+import io.realm.Realm
 import timber.log.Timber
 
 class LinkLoomApplication: Application() {
@@ -24,6 +25,7 @@ class LinkLoomApplication: Application() {
             Timber.plant(ApplicationCrashReporter())
         }
 
+        Realm.init(this)
         FirebaseApp.initializeApp(this)
         FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(true)
         FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)

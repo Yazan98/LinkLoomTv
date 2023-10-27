@@ -7,4 +7,7 @@
     <string name="on_boarding_3_title">Share Websites and Links</string>
     <string name="on_boarding_3_message">Link Loom Support Link Sharing From your Android Mobile Device to Your TV Directly, No Need to Write the Url Manually (This Feature Support Google Chromecast and Bluetooth Connection)</string>
     <string name="continue_button">Continue</string>
+    <string name="home">Home</string>
+    <string name="saved_links">Saved Websites</string>
+    <string name="settings">Settings</string>
 </resources>
