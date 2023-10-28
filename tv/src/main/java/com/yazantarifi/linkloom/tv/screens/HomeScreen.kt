@@ -39,6 +39,7 @@ import androidx.tv.material3.rememberDrawerState
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.yazantarifi.linkloom.tv.ApplicationViewModel
+import com.yazantarifi.linkloom.tv.LinkLoomApplication
 import com.yazantarifi.linkloom.tv.R
 import com.yazantarifi.linkloom.tv.composables.HistoryTabComposable
 import com.yazantarifi.linkloom.tv.composables.HomeTabComposable
@@ -56,6 +57,7 @@ class HomeScreen: ComponentActivity() {
     @OptIn(ExperimentalTvMaterial3Api::class, ExperimentalGlideComposeApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        LinkLoomApplication.onSendScreenViewEvent("HomeScreen", this)
         setContent {
             LinkLoomTheme {
                 val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)

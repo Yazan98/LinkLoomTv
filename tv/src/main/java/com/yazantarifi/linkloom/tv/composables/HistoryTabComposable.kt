@@ -78,30 +78,13 @@ fun HistoryTabComposable(viewModel: ApplicationViewModel) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-//        TvLazyColumn(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .wrapContentHeight(),
-//            verticalArrangement = Arrangement.spacedBy(25.dp)
-//        ) {
-//            items(HistoryItemsBuilder.getScreenItems(context)) { section ->
-//                Section(section) {
-//                    if (it.url.equals("add")) {
-//                        isAddInputDialogOpened.value = true
-//                    } else {
-//                        viewModel.historyScreenItems.clear()
-//                        viewModel.onClearHistory((context.applicationContext as LinkLoomApplication).currentProfile)
-//                    }
-//                }
-//            }
-//        }
-
         Row(modifier = Modifier.wrapContentWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
             Button(
                 modifier = Modifier
                     .clip(CircleShape)
                     .background(RedPrimary),
                 onClick = {
+                    LinkLoomApplication.onSendEvent("SaveUrl", context)
                     isAddInputDialogOpened.value = true
                 }
             ) {
@@ -115,6 +98,7 @@ fun HistoryTabComposable(viewModel: ApplicationViewModel) {
                     .clip(CircleShape)
                     .background(RedPrimary),
                 onClick = {
+                    LinkLoomApplication.onSendEvent("ClearHistory", context)
                     viewModel.onClearHistory((context.applicationContext as LinkLoomApplication).currentProfile)
                 }
             ) {

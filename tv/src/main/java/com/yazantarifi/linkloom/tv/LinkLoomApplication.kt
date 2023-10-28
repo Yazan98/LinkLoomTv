@@ -1,6 +1,8 @@
 package com.yazantarifi.linkloom.tv
 
 import android.app.Application
+import android.content.Context
+import android.os.Bundle
 import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -19,6 +21,18 @@ class LinkLoomApplication: Application() {
     companion object {
         fun onAppLog(message: String) {
             Timber.d("[LinkLoom Debug][$message]")
+        }
+
+        fun onSendScreenViewEvent(screenName: String, context: Context) {
+            FirebaseAnalytics.getInstance(context).logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, Bundle().apply {
+                putString("Screen", screenName)
+            })
+        }
+
+        fun onSendEvent(event: String, context: Context) {
+            FirebaseAnalytics.getInstance(context).logEvent(event, Bundle().apply {
+                putString("Event", event)
+            })
         }
     }
 
@@ -48,6 +62,8 @@ class LinkLoomApplication: Application() {
         FirebaseCrashlytics.getInstance().checkForUnsentReports().addOnCompleteListener {
             onAppLog("Firebase Unsent Crashes Status: ${it.isSuccessful}")
         }
+
+        FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.APP_OPEN, null)
     }
 
     @RealmModule(library = true, classes = [LinkHistoryEntity::class, ApplicationAccountEntity::class])

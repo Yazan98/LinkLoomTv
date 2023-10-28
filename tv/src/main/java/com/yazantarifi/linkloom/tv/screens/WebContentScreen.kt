@@ -9,6 +9,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import com.yazantarifi.linkloom.tv.LinkLoomApplication
 import com.yazantarifi.linkloom.tv.R
 import com.yazantarifi.linkloom.tv.content.SettingsItemsBuilder
 
@@ -31,6 +32,7 @@ class WebContentScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val type = intent?.extras?.getString(ARGUMENT_TYPE, "") ?: ""
+        LinkLoomApplication.onSendScreenViewEvent("WebContentScreen_$type", this)
         setContentView(R.layout.screen_webview)
         webView = findViewById(R.id.webView)
         webView?.apply {

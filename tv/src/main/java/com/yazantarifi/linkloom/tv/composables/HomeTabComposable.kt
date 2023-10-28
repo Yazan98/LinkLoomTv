@@ -32,6 +32,7 @@ import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.yazantarifi.linkloom.tv.LinkLoomApplication
 import com.yazantarifi.linkloom.tv.R
 import com.yazantarifi.linkloom.tv.models.HomeSectionItem
 import com.yazantarifi.linkloom.tv.screens.WebsiteScreen
@@ -71,6 +72,7 @@ fun HomeTabComposable() {
         ) {
             items(HomeScreenSectionsBuilder.getSections(context)) { section ->
                 Section(section) {
+                    LinkLoomApplication.onSendEvent("HomeScreenSectionItem_${section.title}", context)
                     WebsiteScreen.startScreen(context, it.url, it.name)
                 }
             }

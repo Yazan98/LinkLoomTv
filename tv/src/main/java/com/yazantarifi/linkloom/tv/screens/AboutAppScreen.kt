@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Text
+import com.yazantarifi.linkloom.tv.LinkLoomApplication
 import com.yazantarifi.linkloom.tv.utils.RedPrimary
 import com.yazantarifi.linkloom.tv.utils.White
 
@@ -19,6 +20,7 @@ class AboutAppScreen: ComponentActivity() {
     @OptIn(ExperimentalTvMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        LinkLoomApplication.onSendScreenViewEvent("AboutApplicationScreen", this)
         setContent {
             Column(modifier = Modifier
                 .fillMaxSize()
