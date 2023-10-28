@@ -112,6 +112,11 @@ class HomeScreen: ComponentActivity() {
                                 .fillMaxWidth()
                                 .clickable {
                                     if (connectedDevice.isEmpty()) {
+                                        mediaSelector?.let { it1 ->
+                                            mediaRouter.addCallback(
+                                                it1, mediaRouterCallback,
+                                                MediaRouter.CALLBACK_FLAG_PERFORM_ACTIVE_SCAN)
+                                        }
                                         mediaRouter.selectRoute(it.routeDevice)
                                     }
                                 }) {
@@ -156,7 +161,7 @@ class HomeScreen: ComponentActivity() {
             .addControlCategory(CastMediaControlIntent.categoryForCast("07EB8A95"))
             .build()
 
-        mediaRouter = MediaRouter.getInstance(this)
+        mediaRouter = MediaRouter.getInstance(applicationContext)
         val routes = mediaRouter.routes;
         routes.forEach {
             val device = CastDevice.getFromBundle(it.extras)
@@ -171,12 +176,20 @@ class HomeScreen: ComponentActivity() {
     override fun onStart() {
         super.onStart()
         mediaSelector?.also { selector ->
-            MediaRouter.getInstance(baseContext)?.addCallback(selector, mediaRouterCallback,
-                MediaRouter.CALLBACK_FLAG_REQUEST_DISCOVERY)
+            mediaRouter.addCallback(selector, mediaRouterCallback,
+                MediaRouter.CALLBACK_FLAG_PERFORM_ACTIVE_SCAN)
         }
     }
 
     private val mediaRouterCallback = object : MediaRouter.Callback() {
+        override fun onRouteSelected(
+            router: MediaRouter,
+            route: MediaRouter.RouteInfo,
+            reason: Int
+        ) {
+            super.onRouteSelected(router, route, reason)
+            println("Charomcast Event : onRouteSelected : $route")
+        }
     }
 
     private val sessionManagerListener = object : SessionManagerListener<CastSession> {
@@ -211,7 +224,7 @@ class HomeScreen: ComponentActivity() {
         override fun onSessionStarted(p0: CastSession, p1: String) {
             println("Charomcast Event : onSessionStarted")
             castSession = p0
-            connectedDevice = p0.sessionId ?: ""
+            connectedDeviceState = p0.sessionId ?: ""
             Toast.makeText(this@HomeScreen, "Device Connected", Toast.LENGTH_SHORT).show()
         }
 
