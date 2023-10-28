@@ -2,6 +2,7 @@ package com.yazantarifi.linkloom.tv.screens
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -94,7 +95,10 @@ class HomeScreen: ComponentActivity() {
 
         CastReceiverContext.getInstance().setMessageReceivedListener("urn:x-cast:open-website", object : MessageReceivedListener {
             override fun onMessageReceived(p0: String, p1: String?, p2: String) {
-                Toast.makeText(this@HomeScreen, "Message Recived : $p1, $p2", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@HomeScreen, "Opening New Website : ${p2}", Toast.LENGTH_SHORT).show()
+                if (!TextUtils.isEmpty(p2)) {
+                    WebsiteScreen.startScreenDirectly(this@HomeScreen, p2, "Custom Website")
+                }
             }
         })
     }

@@ -9,7 +9,7 @@ class MyReceiverOptionsProvider : ReceiverOptionsProvider {
     override fun getOptions(context: Context): CastReceiverOptions {
         return CastReceiverOptions.Builder(context)
             .setStatusText("LinkLoom Cast Connect")
-//            .setCastAppId("07EB8A95")
+            .setCustomNamespaces(listOf("urn:x-cast:open-website"))
             .build()
     }
 }

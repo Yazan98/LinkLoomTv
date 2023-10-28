@@ -33,6 +33,14 @@ class WebsiteScreen: AppCompatActivity() {
                 context.startActivity(this)
             }
         }
+
+        fun startScreenDirectly(context: Context, url: String, name: String) {
+            Intent(context, WebsiteScreen::class.java).apply {
+                putExtra(ARGUMENT_NAME, name)
+                putExtra(ARGUMENT_URL, url)
+                context.startActivity(this)
+            }
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
