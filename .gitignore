@@ -16,3 +16,7 @@ local.properties
 
 /mobile/google-services.json
 /tv/google-services.json
+/keys
+/keys/**
+/keys/Mobile Signing Key
+/keys/Tv Signing Key

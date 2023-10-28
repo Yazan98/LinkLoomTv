@@ -1,3 +1,20 @@
+import java.util.Properties
+
+fun loadProperties(file: File): Properties {
+    val properties = Properties()
+    if (file.exists()) {
+        file.inputStream().use { properties.load(it) }
+    }
+    return properties
+}
+
+// Load properties from local.properties
+val localPropertiesFile = rootProject.file("local.properties")
+val localProperties = loadProperties(localPropertiesFile)
+
+// Access the properties in your Kotlin build.gradle script
+val password: String? by localProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -9,6 +26,15 @@ plugins {
 apply(plugin = "realm-android")
 
 android {
+    signingConfigs {
+        create("release") {
+            storeFile = file("../keys/Tv Signing Key")
+            storePassword = password
+            keyAlias = "key0"
+            keyPassword = password
+        }
+    }
+
     namespace = "com.yazantarifi.linkloom.tv"
     compileSdk = 34
 
