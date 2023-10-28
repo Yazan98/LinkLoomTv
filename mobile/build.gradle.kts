@@ -52,6 +52,11 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:31.4.0"))
     implementation(platform("androidx.compose:compose-bom:2023.10.01"))
 
+    implementation("androidx.appcompat:appcompat:1.6.1")
+
+    implementation("androidx.mediarouter:mediarouter:1.6.0")
+    implementation("com.google.android.gms:play-services-cast-framework:21.3.0")
+
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.activity:activity-compose:1.8.0")
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +15,11 @@
         android:name="com.yazantarifi.mobile.LinkLoomApplication"
         android:supportsRtl="true"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
+            android:value="com.yazantarifi.mobile.CastOptionsProvider" />
+
         <activity
             android:name="com.yazantarifi.mobile.MainActivity"
             android:exported="true">
@@ -25,7 +31,9 @@
         </activity>
 
         <activity android:name="com.yazantarifi.mobile.screens.HomeScreen"
+            android:launchMode="singleTop"
             android:screenOrientation="fullSensor"/>
+
     </application>
 
 </manifest>
