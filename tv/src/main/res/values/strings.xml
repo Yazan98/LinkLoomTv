@@ -59,4 +59,15 @@
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="add_new">Add New Website</string>
+    <string name="settings_message">Application Settings</string>
+    <string name="accounts">Profiles</string>
+    <string name="pp">Privacy Policy</string>
+    <string name="tc">Terms and Conditions</string>
+    <string name="about">About Application</string>
+    <string name="report">Report Bug</string>
+    <string name="request">Request New Feature</string>
+    <string name="under_dev">This Feature under development</string>
+    <string name="settings_1">This Application Built for Android TV to Navigate between Websites</string>
+    <string name="settings_2">You can Push Links from your Mobile App to this App Directly</string>
+    <string name="settings_3">If you like Link Loom, Star it on Github and Request new Feature if you need something new, anything in this app are completely free</string>
 </resources>

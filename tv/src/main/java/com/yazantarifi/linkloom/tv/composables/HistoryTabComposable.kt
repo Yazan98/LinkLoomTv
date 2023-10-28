@@ -1,6 +1,5 @@
 package com.yazantarifi.linkloom.tv.composables
 
-import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,8 +37,6 @@ import androidx.compose.ui.window.Dialog
 import androidx.tv.foundation.lazy.grid.TvGridCells
 import androidx.tv.foundation.lazy.grid.TvLazyVerticalGrid
 import androidx.tv.foundation.lazy.grid.items
-import androidx.tv.foundation.lazy.list.TvLazyColumn
-import androidx.tv.foundation.lazy.list.items
 import androidx.tv.material3.Button
 import androidx.tv.material3.Card
 import androidx.tv.material3.ExperimentalTvMaterial3Api
@@ -48,12 +45,8 @@ import androidx.tv.material3.Text
 import com.yazantarifi.linkloom.tv.ApplicationViewModel
 import com.yazantarifi.linkloom.tv.LinkLoomApplication
 import com.yazantarifi.linkloom.tv.R
-import com.yazantarifi.linkloom.tv.screens.HomeScreen
 import com.yazantarifi.linkloom.tv.screens.WebsiteScreen
 import com.yazantarifi.linkloom.tv.utils.AppUtils
-import com.yazantarifi.linkloom.tv.utils.HistoryItemsBuilder
-import com.yazantarifi.linkloom.tv.utils.HomeScreenSectionsBuilder
-import com.yazantarifi.linkloom.tv.utils.LinkLoomPrefsManager
 import com.yazantarifi.linkloom.tv.utils.RedPrimary
 import com.yazantarifi.linkloom.tv.utils.White
 

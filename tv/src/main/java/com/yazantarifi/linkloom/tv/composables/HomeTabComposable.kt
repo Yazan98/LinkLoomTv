@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyColumn
 import androidx.tv.foundation.lazy.list.TvLazyRow
 import com.yazantarifi.linkloom.tv.models.HomeSection
-import com.yazantarifi.linkloom.tv.utils.HomeScreenSectionsBuilder
+import com.yazantarifi.linkloom.tv.content.HomeScreenSectionsBuilder
 import androidx.tv.foundation.lazy.list.items
 import androidx.tv.material3.Card
 import androidx.tv.material3.ExperimentalTvMaterial3Api

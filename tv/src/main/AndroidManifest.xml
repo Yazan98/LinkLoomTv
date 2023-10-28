@@ -35,7 +35,12 @@
 
         <activity android:name=".screens.HomeScreen" />
         <activity android:name=".screens.OnBoardingScreen" />
+        <activity android:name=".screens.AboutAppScreen" />
         <activity android:name=".screens.WebsiteScreen"
+            android:theme="@style/AppTheme"
+            android:launchMode="singleTop"/>
+
+        <activity android:name=".screens.WebContentScreen"
             android:theme="@style/AppTheme"
             android:launchMode="singleTop"/>
 

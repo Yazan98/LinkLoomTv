@@ -1,4 +1,4 @@
-package com.yazantarifi.linkloom.tv.utils
+package com.yazantarifi.linkloom.tv.content
 
 import android.content.Context
 import com.yazantarifi.linkloom.tv.R

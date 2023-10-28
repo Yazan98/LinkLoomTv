@@ -42,6 +42,7 @@ import com.yazantarifi.linkloom.tv.ApplicationViewModel
 import com.yazantarifi.linkloom.tv.R
 import com.yazantarifi.linkloom.tv.composables.HistoryTabComposable
 import com.yazantarifi.linkloom.tv.composables.HomeTabComposable
+import com.yazantarifi.linkloom.tv.composables.SettingsComposable
 import com.yazantarifi.linkloom.tv.models.NavigationItem
 import com.yazantarifi.linkloom.tv.utils.LinkLoomTheme
 import com.yazantarifi.linkloom.tv.utils.RedPrimary
@@ -95,6 +96,7 @@ class HomeScreen: ComponentActivity() {
             when (position) {
                 0 -> HomeTabComposable()
                 1 -> HistoryTabComposable(viewModel)
+                2 -> SettingsComposable()
             }
         }
     }
