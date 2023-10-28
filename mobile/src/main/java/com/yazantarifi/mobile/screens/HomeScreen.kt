@@ -42,7 +42,9 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.google.android.gms.cast.CastDevice
 import com.google.android.gms.cast.CastMediaControlIntent
+import com.google.android.gms.cast.CastStatusCodes
 import com.google.android.gms.cast.framework.CastSession
+import com.google.android.gms.cast.framework.SessionManager
 import com.google.android.gms.cast.framework.SessionManagerListener
 import com.yazantarifi.linkloom.mobile.R
 import com.yazantarifi.mobile.LinkLoomApplication
@@ -110,23 +112,7 @@ class HomeScreen: ComponentActivity() {
                                 .fillMaxWidth()
                                 .clickable {
                                     if (connectedDevice.isEmpty()) {
-                                        val castIntent = Intent()
-                                        castIntent.putExtra(
-                                            "CAST_INTENT_TO_CAST_ROUTE_ID_KEY",
-                                            it.id
-                                        )
-                                        castIntent.putExtra(
-                                            "CAST_INTENT_TO_CAST_DEVICE_NAME_KEY",
-                                            it.name
-                                        )
-                                        castIntent.putExtra(
-                                            "CAST_INTENT_TO_CAST_NO_TOAST_KEY",
-                                            true
-                                        )
-
-                                        (applicationContext as LinkLoomApplication).castInstance?.sessionManager?.startSession(
-                                            castIntent
-                                        )
+                                        mediaRouter.selectRoute(it.routeDevice)
                                     }
                                 }) {
                                 Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Start) {
@@ -170,12 +156,12 @@ class HomeScreen: ComponentActivity() {
             .addControlCategory(CastMediaControlIntent.categoryForCast("07EB8A95"))
             .build()
 
-        val router = MediaRouter.getInstance(this)
-        val routes = router.routes;
+        mediaRouter = MediaRouter.getInstance(this)
+        val routes = mediaRouter.routes;
         routes.forEach {
             val device = CastDevice.getFromBundle(it.extras)
             if (!TextUtils.isEmpty(device?.deviceId ?: "")) {
-                chromecastDevicesState.add(LinkLoomChromeCastDevice(device?.deviceId ?: "", device?.friendlyName ?: "", device?.deviceVersion ?: ""))
+                chromecastDevicesState.add(LinkLoomChromeCastDevice(device?.deviceId ?: "", device?.friendlyName ?: "", device?.deviceVersion ?: "", it))
             }
         }
 
@@ -215,9 +201,11 @@ class HomeScreen: ComponentActivity() {
         }
 
         override fun onSessionStartFailed(p0: CastSession, p1: Int) {
-            println("Charomcast Event : onSessionStartFailed : $p1")
+            println("Charomcast Event : onSessionStartFailed : ${ (applicationContext as LinkLoomApplication).castInstance?.getCastReasonCodeForCastStatusCode(p1)}")
+            println("Charomcast Event : onSessionStartFailed : ${CastStatusCodes.getStatusCodeString(p1)}")
             connectedDevice = ""
             connectedDeviceState = ""
+
         }
 
         override fun onSessionStarted(p0: CastSession, p1: String) {

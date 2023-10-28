@@ -5,9 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <WebView
+    <com.yazantarifi.linkloom.tv.utils.CursorLayout
         android:layout_width="match_parent"
-        android:id="@+id/webView"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <WebView
+            android:layout_width="match_parent"
+            android:id="@+id/webView"
+            android:layout_height="match_parent" />
+
+    </com.yazantarifi.linkloom.tv.utils.CursorLayout>
 
 </LinearLayout>

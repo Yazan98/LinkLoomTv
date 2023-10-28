@@ -61,10 +61,14 @@ dependencies {
 
     implementation("androidx.activity:activity-compose:1.8.0")
     implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.lifecycle:lifecycle-process:2.6.2")
     debugImplementation("androidx.compose.ui:ui-tooling")
 
     implementation("androidx.tv:tv-foundation:1.0.0-alpha10")
     implementation("androidx.tv:tv-material:1.0.0-alpha10")
+
+    implementation("com.google.android.gms:play-services-cast-tv:21.0.0")
+    implementation("com.google.android.gms:play-services-cast:21.3.0")
 
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-analytics-ktx")

@@ -3,6 +3,13 @@ package com.yazantarifi.linkloom.tv
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ProcessLifecycleOwner
+import com.google.android.gms.cast.tv.CastReceiverContext
+import com.google.android.gms.cast.tv.SenderDisconnectedEventInfo
+import com.google.android.gms.cast.tv.SenderInfo
 import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -38,6 +45,10 @@ class LinkLoomApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
+        CastReceiverContext.initInstance(this)
+        ProcessLifecycleOwner.get().lifecycle.addObserver(AppLifecycleObserver())
+        CastReceiverContext.getInstance().registerEventCallback(EventCallback())
+
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         } else {
@@ -64,6 +75,34 @@ class LinkLoomApplication: Application() {
         }
 
         FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.APP_OPEN, null)
+    }
+
+    class AppLifecycleObserver : DefaultLifecycleObserver {
+        override fun onResume(owner: LifecycleOwner) {
+            CastReceiverContext.getInstance().start()
+        }
+
+        override fun onPause(owner: LifecycleOwner) {
+            CastReceiverContext.getInstance().stop()
+        }
+    }
+
+    private inner class EventCallback : CastReceiverContext.EventCallback() {
+        override fun onSenderConnected(senderInfo: SenderInfo) {
+            Toast.makeText(
+                this@LinkLoomApplication,
+                "Sender connected " + senderInfo.senderId,
+                Toast.LENGTH_LONG)
+                .show()
+        }
+
+        override fun onSenderDisconnected(eventInfo: SenderDisconnectedEventInfo) {
+            Toast.makeText(
+                this@LinkLoomApplication,
+                "Sender disconnected " + eventInfo.senderInfo.senderId,
+                Toast.LENGTH_LONG)
+                .show()
+        }
     }
 
     @RealmModule(library = true, classes = [LinkHistoryEntity::class, ApplicationAccountEntity::class])

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -20,6 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.google.android.gms.cast.tv.CastReceiverContext
+import com.google.android.gms.cast.tv.media.MediaManager
 import com.yazantarifi.linkloom.tv.screens.HomeScreen
 import com.yazantarifi.linkloom.tv.screens.OnBoardingScreen
 import com.yazantarifi.linkloom.tv.utils.LinkLoomPrefsManager
@@ -50,6 +53,18 @@ class MainScreen: ComponentActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             onMainScreenNavigation()
         }, 3000)
+    }
+
+    fun processIntent(intent: Intent?) {
+        val mediaManager: MediaManager = CastReceiverContext.getInstance().mediaManager
+        // Pass intent to Cast SDK
+        if (mediaManager.onNewIntent(intent)) {
+            return
+        }
+
+        // Clears all overrides in the modifier.
+        mediaManager.mediaStatusModifier.clear()
+        Toast.makeText(this, "New Event", Toast.LENGTH_SHORT).show()
     }
 
     private fun onMainScreenNavigation() {
