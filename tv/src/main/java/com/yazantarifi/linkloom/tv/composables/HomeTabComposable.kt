@@ -124,8 +124,7 @@ fun WebsiteCard(
                model = item.banner,
                contentDescription = item.name,
                modifier = Modifier
-                   .size(210.dp, 140.dp)
-                   .clip(RoundedCornerShape(10)),
+                   .size(210.dp, 140.dp),
                contentScale = ContentScale.Crop,
            )
 
