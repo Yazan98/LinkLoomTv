@@ -26,6 +26,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -111,12 +112,13 @@ class HomeScreen: ComponentActivity() {
                             Column( modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    if (connectedDevice.isEmpty()) {
+                                    if (connectedDeviceState.isEmpty()) {
                                         mediaSelector?.let { it1 ->
                                             mediaRouter.addCallback(
                                                 it1, mediaRouterCallback,
                                                 MediaRouter.CALLBACK_FLAG_PERFORM_ACTIVE_SCAN)
                                         }
+                                        Toast.makeText(this@HomeScreen, "Device Connection Started", Toast.LENGTH_SHORT).show()
                                         mediaRouter.selectRoute(it.routeDevice)
                                     }
                                 }) {
@@ -140,11 +142,13 @@ class HomeScreen: ComponentActivity() {
                     }
                 }
 
-                val connectedDeviceStateRemember = remember {
-                    connectedDeviceState
+                var result by remember { mutableStateOf(connectedDeviceState) }
+                LaunchedEffect(connectedDeviceState) {
+                    result = connectedDeviceState
                 }
+
                 Column(modifier = Modifier.fillMaxWidth()) {
-                    if (!TextUtils.isEmpty(connectedDeviceStateRemember)) {
+                    if (result.isNotEmpty()) {
                         Text(text = "Chromecast Connected", color = Color.Green)
                     }
                     Spacer(modifier = Modifier.height(5.dp))
