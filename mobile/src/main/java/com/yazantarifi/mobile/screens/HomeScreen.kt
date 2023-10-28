@@ -41,12 +41,14 @@ import androidx.mediarouter.media.MediaRouteSelector
 import androidx.mediarouter.media.MediaRouter
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.google.android.gms.cast.Cast.MessageReceivedCallback
 import com.google.android.gms.cast.CastDevice
 import com.google.android.gms.cast.CastMediaControlIntent
 import com.google.android.gms.cast.CastStatusCodes
 import com.google.android.gms.cast.framework.CastSession
 import com.google.android.gms.cast.framework.SessionManager
 import com.google.android.gms.cast.framework.SessionManagerListener
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.yazantarifi.linkloom.mobile.R
 import com.yazantarifi.mobile.LinkLoomApplication
 import com.yazantarifi.mobile.LinkLoomChromeCastDevice
@@ -97,7 +99,7 @@ class HomeScreen: ComponentActivity() {
                         onClick = {
                             if (websiteLink.isNotEmpty()) {
                                 currentUrl = websiteLink
-                                castSession?.sendMessage("com.yazantarifi.linkloom.mobile", websiteLink)
+                                castSession?.sendMessage("urn:x-cast:open-website", websiteLink)
                             }
                         }
                     ) {
@@ -199,10 +201,14 @@ class HomeScreen: ComponentActivity() {
     private val sessionManagerListener = object : SessionManagerListener<CastSession> {
         override fun onSessionEnded(p0: CastSession, p1: Int) {
             println("Charomcast Event : onSessionEnded")
+            connectedDevice = ""
+            connectedDeviceState = ""
         }
 
         override fun onSessionEnding(p0: CastSession) {
             println("Charomcast Event : onSessionEnding")
+            connectedDevice = ""
+            connectedDeviceState = ""
         }
 
         override fun onSessionResumeFailed(p0: CastSession, p1: Int) {
@@ -222,7 +228,6 @@ class HomeScreen: ComponentActivity() {
             println("Charomcast Event : onSessionStartFailed : ${CastStatusCodes.getStatusCodeString(p1)}")
             connectedDevice = ""
             connectedDeviceState = ""
-
         }
 
         override fun onSessionStarted(p0: CastSession, p1: String) {

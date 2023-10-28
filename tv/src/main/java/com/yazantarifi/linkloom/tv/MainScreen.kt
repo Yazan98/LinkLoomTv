@@ -55,18 +55,6 @@ class MainScreen: ComponentActivity() {
         }, 3000)
     }
 
-    fun processIntent(intent: Intent?) {
-        val mediaManager: MediaManager = CastReceiverContext.getInstance().mediaManager
-        // Pass intent to Cast SDK
-        if (mediaManager.onNewIntent(intent)) {
-            return
-        }
-
-        // Clears all overrides in the modifier.
-        mediaManager.mediaStatusModifier.clear()
-        Toast.makeText(this, "New Event", Toast.LENGTH_SHORT).show()
-    }
-
     private fun onMainScreenNavigation() {
         when (LinkLoomPrefsManager.getBooleanValue(applicationContext, LinkLoomPrefsManager.IS_FIRST_RUN_APP)) {
             true -> startActivity(Intent(this, HomeScreen::class.java))

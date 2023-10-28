@@ -41,14 +41,18 @@
                 <action android:name="com.google.android.gms.cast.tv.action.LAUNCH" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
 
+        <activity
+            android:name=".screens.HomeScreen"
+            android:exported="true"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="com.google.android.gms.cast.tv.action.LOAD"/>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".screens.HomeScreen" />
         <activity android:name=".screens.OnBoardingScreen" />
         <activity android:name=".screens.AboutAppScreen" />
         <activity android:name=".screens.WebsiteScreen"

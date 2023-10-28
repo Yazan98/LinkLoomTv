@@ -1,6 +1,8 @@
 package com.yazantarifi.linkloom.tv.screens
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -38,6 +40,9 @@ import androidx.tv.material3.Text
 import androidx.tv.material3.rememberDrawerState
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.google.android.gms.cast.tv.CastReceiverContext
+import com.google.android.gms.cast.tv.CastReceiverContext.MessageReceivedListener
+import com.google.android.gms.cast.tv.media.MediaManager
 import com.yazantarifi.linkloom.tv.ApplicationViewModel
 import com.yazantarifi.linkloom.tv.LinkLoomApplication
 import com.yazantarifi.linkloom.tv.R
@@ -86,6 +91,12 @@ class HomeScreen: ComponentActivity() {
                 }
             }
         }
+
+        CastReceiverContext.getInstance().setMessageReceivedListener("urn:x-cast:open-website", object : MessageReceivedListener {
+            override fun onMessageReceived(p0: String, p1: String?, p2: String) {
+                Toast.makeText(this@HomeScreen, "Message Recived : $p1, $p2", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     @OptIn(ExperimentalTvMaterial3Api::class)
@@ -142,6 +153,24 @@ class HomeScreen: ComponentActivity() {
         ) {
             Text(text = item.text, color = Color.White, softWrap = false)
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        processIntent(intent)
+    }
+
+    fun processIntent(intent: Intent?) {
+        Toast.makeText(this, "New Event 1", Toast.LENGTH_SHORT).show()
+        val mediaManager: MediaManager = CastReceiverContext.getInstance().mediaManager
+        // Pass intent to Cast SDK
+        if (mediaManager.onNewIntent(intent)) {
+            return
+        }
+
+        // Clears all overrides in the modifier.
+        mediaManager.mediaStatusModifier.clear()
+        Toast.makeText(this, "New Event", Toast.LENGTH_SHORT).show()
     }
 
 }
