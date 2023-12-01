@@ -28,6 +28,8 @@ This project Contains 2 Applications (Mobile App, TV App) and Each one of them U
 ## Project Description
 This project Built to try Chromecast SDK to Push Eveents Between Mobile and TV Applications Via Chromecast Device with Jetpack Compose and Material 3 Library
 
+## Project Builds
+Project Builds (Apk, AAB) Available to download in Releases Tab
 
 ## How To Use
 
