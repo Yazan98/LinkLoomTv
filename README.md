@@ -4,6 +4,11 @@
 
 Link Loom is an Android TV and Mobile Application That Share Links Between Mobile app and TV, When i want to see a Website i search on the Link on Internal Web Browser now i can Push Links Directly From my Mobile Phone Without Writing anything on TV Keyboard
 
+## Implementation Steps
+
+A Full Tutorial on this Example Explained on Medium Article Feel Free to Read the Steps how to Implement an App with Chromecast and Jetpack Compose Tv SDK
+
+[Link](https://medium.com/@yazantarifi98/unleashing-the-future-building-chromecast-tv-applications-with-jetpack-compose-and-material-3-910c021acae5)
 
 ## Technologies Used
 1. K2 Kotlin Compiler
